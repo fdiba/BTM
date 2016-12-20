@@ -1,9 +1,11 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxMidi.h"
+
 #include "MRect.h"
 
-class ofApp : public ofBaseApp{
+class ofApp : public ofBaseApp, public ofxMidiListener {
 
 	public:
 
@@ -22,6 +24,17 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+
+		void displayMidiInfos();
+
+		void newMidiMessage(ofxMidiMessage& eventArgs);
+		void exit();
+
+		ofxMidiIn midiIn;
+		ofxMidiMessage midiMessage;
+		stringstream text;
+
+		int instr_channel;
 
 		MRect mrect;
 		
