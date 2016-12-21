@@ -36,6 +36,12 @@ class ofApp : public ofBaseApp, public ofxMidiListener {
 
 		int instr_channel;
 
+		ofVideoGrabber videoGrabber;
+		int camWidth;
+		int camHeight;
+
+		ofImage img;
+
 		MRect mrect;
 		
 };

@@ -35,6 +35,6 @@ void MRect::draw() {
 	ofSetColor(color);
 	ofDrawRectangle(x-dim/2, y-dim/2, dim, dim);
 
-	ofSetColor(0x000000);
+	ofSetColor(255);
 	ofDrawBitmapString(name, x, y - maxDim / 2);
 }

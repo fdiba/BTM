@@ -3,12 +3,42 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 
-	ofSetWindowTitle("midi test");
+	ofBackground(0);
+
+	std::stringstream strm;
+	strm << "fps: " << ofGetFrameRate();
+	ofSetWindowTitle(strm.str());
+
+	//ofSetWindowTitle("midi test");
 
 	//ofSetWindowShape(1024, 768);
-	ofSetWindowPosition(2024, 200);
+	//ofSetWindowPosition(2024, 200);
 	//ofSetFullscreen(true);
 
+	//--------------
+
+	camWidth = 320;  // try to grab at this size.
+	camHeight = 240;
+
+	vector<ofVideoDevice> devices = videoGrabber.listDevices();
+
+	for (int i = 0; i < devices.size(); i++) {
+		if (devices[i].bAvailable) {
+			//log the device
+			ofLogNotice() << devices[i].id << ": " << devices[i].deviceName;
+		} else {
+			//log the device and note it as unavailable
+			ofLogNotice() << devices[i].id << ": " << devices[i].deviceName << " - unavailable ";
+		}
+	}
+
+	videoGrabber.setDeviceID(0);
+	videoGrabber.setDesiredFrameRate(60);
+	videoGrabber.initGrabber(camWidth, camHeight);
+
+	ofSetVerticalSync(true);
+
+	//---------------
 	instr_channel = 1;
 
 	midiIn.listPorts();
@@ -64,6 +94,15 @@ void ofApp::newMidiMessage(ofxMidiMessage& msg) {
 //--------------------------------------------------------------
 void ofApp::update(){
 	mrect.update();
+
+	//-----------------
+	videoGrabber.update();
+
+	if (videoGrabber.isFrameNew()) {
+		ofPixels & pixels = videoGrabber.getPixels();
+	}
+
+
 }
 
 //--------------------------------------------------------------
@@ -71,13 +110,16 @@ void ofApp::draw(){
 	mrect.draw();
 
 	displayMidiInfos();
+
+	ofSetHexColor(0xffffff);
+	videoGrabber.draw(20, 120);
 	
 }
 void ofApp::displayMidiInfos() {
 
 	float xPos = 420;
 
-	ofSetColor(0);
+	ofSetColor(255);
 
 	// draw the last recieved message contents to the screen
 	text << "Received: " << ofxMidiMessage::getStatusString(midiMessage.status);
@@ -120,6 +162,25 @@ void ofApp::displayMidiInfos() {
 }
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+
+	if (key == '1') {
+		cout << "state 1" << endl;
+	} else if (key == 'x') {
+		img.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
+
+		//
+		string str;
+		string name = "of_screenshot_" ;
+		string date = ofToString(ofGetUnixTime());
+		string extension = ".png";
+		str.append(name);
+		str.append(date);
+		str.append(extension);
+		
+		img.save(str);
+	}
+
+	//cout << "Key: " << key << endl;
 
 }
 
