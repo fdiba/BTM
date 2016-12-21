@@ -113,6 +113,10 @@ void ofApp::draw(){
 
 	ofSetHexColor(0xffffff);
 	videoGrabber.draw(20, 120);
+
+	for (int i = 0; i < particles.size(); i++) {
+		particles[i].draw();
+	}
 	
 }
 void ofApp::displayMidiInfos() {
@@ -165,6 +169,15 @@ void ofApp::keyPressed(int key){
 
 	if (key == '1') {
 		cout << "state 1" << endl;
+
+		if (particles.size() < 1) {
+			cout << "create new  particle" << endl;
+			Particle p;
+			p.setup();
+			particles.push_back(p);
+		}
+
+
 	} else if (key == 'x') {
 		img.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
 

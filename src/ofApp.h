@@ -4,6 +4,7 @@
 #include "ofxMidi.h"
 
 #include "MRect.h"
+#include "Particle.h"
 
 class ofApp : public ofBaseApp, public ofxMidiListener {
 
@@ -39,6 +40,8 @@ class ofApp : public ofBaseApp, public ofxMidiListener {
 		ofVideoGrabber videoGrabber;
 		int camWidth;
 		int camHeight;
+
+		vector <Particle> particles;
 
 		ofImage img;
 
