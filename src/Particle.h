@@ -5,17 +5,23 @@
 
 class Particle {
 	public:
-		void setup();
+		void setup(float _x, float _y);
 		void update();
 		void draw();
 
 		float x;
 		float y;
-		float speedX;
-		float speedY;
+
+		float velX;
+		float velY;
 
 		int dim;
+		int dim_max;
 		ofColor color;
+		float alpha;
+
+		float lifespan;
+		bool alive;
 
 		Particle();
 

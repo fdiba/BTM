@@ -43,8 +43,13 @@ class ofApp : public ofBaseApp, public ofxMidiListener {
 
 		vector <Particle> particles;
 
+		int p_state;
+
 		ofImage img;
 
 		MRect mrect;
+
+		//---- midi control
+		int max_particles;
 		
 };

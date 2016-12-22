@@ -4,6 +4,12 @@
 void ofApp::setup(){
 
 	ofBackground(0);
+	//ofSetBackgroundAuto(false);
+
+	p_state = -1;
+
+	//-------- midi control
+	max_particles = 150;
 
 	std::stringstream strm;
 	strm << "fps: " << ofGetFrameRate();
@@ -102,17 +108,49 @@ void ofApp::update(){
 		ofPixels & pixels = videoGrabber.getPixels();
 	}
 
+	//------------------
+
+	switch (p_state) {
+	case 1:
+		//will create multiple particles at the same time
+		if (particles.size()<max_particles) {
+		//if (ofGetElapsedTimeMillis() % 1000 == 0 && particles.size()<max_particles) {
+			Particle p;
+			//p.setup(ofGetWidth() / 2 - 20 + ofRandom(40), ofGetHeight() / 2 - 20 + ofRandom(40));
+			p.setup(ofGetWidth() / 2, ofGetHeight() / 2);
+			particles.push_back(p);
+		}
+
+		break;
+	defaut:
+		break;
+	}
+
+	for (int i = 0; i < particles.size(); i++) {
+		particles[i].update();
+		if(!particles[i].alive)particles.erase(particles.begin() + i);
+	}
+
 
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	mrect.draw();
 
-	displayMidiInfos();
+	//---------
+	//mrect.draw();
 
-	ofSetHexColor(0xffffff);
-	videoGrabber.draw(20, 120);
+	
+	//-------------------
+	//displayMidiInfos();
+
+	//-------------------
+	//ofSetHexColor(0xffffff);
+	//videoGrabber.draw(20, ofGetHeight()-(camHeight+20));
+
+	//-----------
+	//ofSetHexColor(0x000000);
+	//ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
 
 	for (int i = 0; i < particles.size(); i++) {
 		particles[i].draw();
@@ -168,17 +206,15 @@ void ofApp::displayMidiInfos() {
 void ofApp::keyPressed(int key){
 
 	if (key == '1') {
-		cout << "state 1" << endl;
 
-		if (particles.size() < 1) {
-			cout << "create new  particle" << endl;
-			Particle p;
-			p.setup();
-			particles.push_back(p);
-		}
+		p_state = 1;
+
+		cout << "p_state" << p_state << endl;
+
+		
 
 
-	} else if (key == 'x') {
+	} else if (key == 's') {
 		img.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
 
 		//
@@ -215,7 +251,9 @@ void ofApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
 	mrect.dim = 40;
-	cout << "Time: " << ofGetElapsedTimef() << endl;
+	//cout << "Time: " << ofGetElapsedTimef() << endl;
+	//cout << "Time: " << ofGetElapsedTimeMillis() << endl;
+	cout << "p size: " << particles.size() << "/" << max_particles << endl;
 }
 
 //--------------------------------------------------------------
