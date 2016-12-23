@@ -9,13 +9,15 @@ class Particle {
 		void update();
 		void draw();
 
-		void getAwayFrom(ofVec2f target, float radius, float max_radius);
+		void getAwayFrom(ofVec2f target, float c_radius, float c_max_radius);
+		void separateFromEachOthers(int index, vector <Particle> particles);
+		void editPosWithVel();
 
 		ofVec2f pos;
 		ofVec2f vel;
 
-		int dim;
-		int dim_max;
+		int radius;
+		int radius_max;
 		ofColor color;
 		float alpha;
 
@@ -25,6 +27,8 @@ class Particle {
 		Particle();
 
 	private:
+
+		
 };
 #endif
 

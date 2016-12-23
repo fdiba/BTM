@@ -62,6 +62,7 @@ class ofApp : public ofBaseApp, public ofxMidiListener {
 		void initState2();
 
 		void starDustAnimation(); //state1
-		void circleAnimation(); //state2
+		void pulseAnimation(); //state2
+		void circleAnimation();//state3
 		
 };

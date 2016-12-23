@@ -112,20 +112,24 @@ void ofApp::update(){
 	}
 
 	//------------------
+	//will create multiple particles at the same time
+	if (particles.size()<max_particles) {
+		Particle p;
+		p.setup(ofGetWidth() / 2, ofGetHeight() / 2);
+		particles.push_back(p);
+	}
 
 	switch (p_state) {
 	case 1:
-		//will create multiple particles at the same time
-		if (particles.size()<max_particles) {
-			Particle p;
-			p.setup(ofGetWidth() / 2, ofGetHeight() / 2);
-			particles.push_back(p);
-		}
+		
 		starDustAnimation();
 		break;
 	case 2:
 		if (ofGetElapsedTimeMillis() % 1000 == 0)initState2(); //TODO 1000 param state2
 
+		pulseAnimation();
+		break;
+	case 3:
 		circleAnimation();
 		break;
 	defaut:
@@ -138,7 +142,18 @@ void ofApp::update(){
 
 }
 //--------------------------------------------------------------
-void ofApp::circleAnimation() { //state2
+void ofApp::circleAnimation() { //state3
+
+	ofVec2f center(ofGetWidth() / 2, ofGetHeight() / 2);
+
+	for (int i = 0; i < particles.size(); i++) {
+		particles[i].getAwayFrom(center, max_radius, max_radius);
+		particles[i].separateFromEachOthers(i, particles);
+		particles[i].editPosWithVel();
+	}
+
+}
+void ofApp::pulseAnimation() { //state2
 
 	ofVec2f center(ofGetWidth()/2, ofGetHeight()/2);
 
@@ -146,6 +161,8 @@ void ofApp::circleAnimation() { //state2
 
 	for (int i = 0; i < particles.size(); i++) {
 		particles[i].getAwayFrom(center, radius, max_radius);
+		//particles[i].separateFromEachOthers(i, particles);
+		particles[i].editPosWithVel();
 	}
 
 }
@@ -233,13 +250,13 @@ void ofApp::keyPressed(int key){
 
 	//cout << "Key: " << key << endl;
 
-	if (key == '1' || key == '2') {
+	if (key == '1' || key == '2' || key == '3') {
 		
 		p_state = key-'0';
 
 		cout << "p_state: " << p_state << endl;
 
-		//if (key == '2')initState2();
+		if (key == '2')initState2();
 
 
 	} else if (key == 's') {
