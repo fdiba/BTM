@@ -59,6 +59,8 @@ class ofApp : public ofBaseApp, public ofxMidiListener {
 		float max_radius; //state2
 		float radius; //state2
 
+		void initState2();
+
 		void starDustAnimation(); //state1
 		void circleAnimation(); //state2
 		

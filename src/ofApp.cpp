@@ -12,7 +12,7 @@ void ofApp::setup(){
 	max_particles = 150;//state1
 
 	max_radius = 150;//state2
-	radius = max_radius;//state2
+	initState2();
 
 	std::stringstream strm;
 	strm << "fps: " << ofGetFrameRate();
@@ -124,6 +124,8 @@ void ofApp::update(){
 		starDustAnimation();
 		break;
 	case 2:
+		if (ofGetElapsedTimeMillis() % 1000 == 0)initState2(); //TODO 1000 param state2
+
 		circleAnimation();
 		break;
 	defaut:
@@ -222,6 +224,10 @@ void ofApp::displayMidiInfos() {
 	text.str(""); // clear
 
 }
+//-----------------------------
+void ofApp::initState2() {
+	radius = max_radius;
+}
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 
@@ -233,7 +239,7 @@ void ofApp::keyPressed(int key){
 
 		cout << "p_state: " << p_state << endl;
 
-		if(key=='2')radius = max_radius;
+		//if (key == '2')initState2();
 
 
 	} else if (key == 's') {
@@ -279,7 +285,7 @@ void ofApp::mousePressed(int x, int y, int button){
 
 	switch (p_state){
 	case 2:
-		radius = max_radius;
+		initState2();
 		break;
 	default:
 		break;
