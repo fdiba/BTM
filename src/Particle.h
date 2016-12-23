@@ -9,11 +9,10 @@ class Particle {
 		void update();
 		void draw();
 
-		float x;
-		float y;
+		void getAwayFrom(ofVec2f target);
 
-		float velX;
-		float velY;
+		ofVec2f pos;
+		ofVec2f vel;
 
 		int dim;
 		int dim_max;

@@ -114,26 +114,41 @@ void ofApp::update(){
 	case 1:
 		//will create multiple particles at the same time
 		if (particles.size()<max_particles) {
-		//if (ofGetElapsedTimeMillis() % 1000 == 0 && particles.size()<max_particles) {
 			Particle p;
-			//p.setup(ofGetWidth() / 2 - 20 + ofRandom(40), ofGetHeight() / 2 - 20 + ofRandom(40));
 			p.setup(ofGetWidth() / 2, ofGetHeight() / 2);
 			particles.push_back(p);
 		}
-
+		starDustAnimation();
+		break;
+	case 2:
+		circleAnimation();
 		break;
 	defaut:
 		break;
 	}
 
-	for (int i = 0; i < particles.size(); i++) {
-		particles[i].update();
-		if(!particles[i].alive)particles.erase(particles.begin() + i);
-	}
+	
+	
 
 
 }
+//--------------------------------------------------------------
+void ofApp::circleAnimation() { //state2
 
+	ofVec2f center(ofGetWidth()/2, ofGetHeight()/2);
+
+	for (int i = 0; i < particles.size(); i++) {
+		particles[i].getAwayFrom(center);
+	}
+
+}
+void ofApp::starDustAnimation() { //state1
+
+	for (int i = 0; i < particles.size(); i++) {
+		particles[i].update();
+		if (!particles[i].alive)particles.erase(particles.begin() + i);
+	}
+}
 //--------------------------------------------------------------
 void ofApp::draw(){
 
@@ -205,11 +220,13 @@ void ofApp::displayMidiInfos() {
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 
-	if (key == '1') {
+	//cout << "Key: " << key << endl;
 
-		p_state = 1;
+	if (key == '1' || key == '2') {
+		
+		p_state = key-'0';
 
-		cout << "p_state" << p_state << endl;
+		cout << "p_state: " << p_state << endl;
 
 		
 
@@ -229,7 +246,7 @@ void ofApp::keyPressed(int key){
 		img.save(str);
 	}
 
-	//cout << "Key: " << key << endl;
+	
 
 }
 

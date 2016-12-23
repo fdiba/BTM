@@ -5,11 +5,9 @@ Particle::Particle() {
 
 
 void Particle::setup(float _x, float _y) {
-	x = _x;
-	y = _y;
 
-	velX = ofRandom(-.5, .5);
-	velY = ofRandom(-.5, .5);
+	pos.set(_x, _y);
+	vel.set(ofRandom(-.5, .5), ofRandom(-.5, .5));
 
 	color.set(255);
 	dim_max = 3;
@@ -17,12 +15,51 @@ void Particle::setup(float _x, float _y) {
 	alive = true;
 
 }
+void Particle::getAwayFrom(ofVec2f target) {
+
+	alpha = 255;
+	dim = dim_max;
+
+	//TODO use squareDistance !!
+	float dist = pos.distance(target);
+
+	float speed = .2;//TODO MAKE PARAM state2
+	float radius = 150; //TODO MAKE PARAM state2
+
+	if (dist < radius) {
+
+		ofVec2f v = target - pos;
+		v.normalize();
+		v *= -speed;
+
+		vel += v;
+
+		color.set(255,0,0);
+
+	} else if (dist > radius+10) {
+
+		ofVec2f v = target - pos;
+		v.normalize();
+		v *= speed;
+
+		vel += v;
+
+		color.set(0, 0, 255);
+
+	}
 
 
+	//----
+
+	pos += vel;
+	vel *= .9;
+
+
+
+}
 void Particle::update() {
 
-	x += velX;
-	y += velY;
+	pos += vel;
 
 	alpha = ofMap(lifespan, 0, 1, 300, -300);
 	alpha = ofClamp(alpha, 0, 255);
@@ -37,5 +74,5 @@ void Particle::update() {
 
 void Particle::draw() {
 	ofSetColor(color, alpha);
-	ofDrawCircle(x, y, dim);
+	ofDrawCircle(pos.x, pos.y, dim);
 }

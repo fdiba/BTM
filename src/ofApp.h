@@ -50,6 +50,11 @@ class ofApp : public ofBaseApp, public ofxMidiListener {
 		MRect mrect;
 
 		//---- midi control
-		int max_particles;
+		int max_particles; //state1
+
+	private:
+
+		void starDustAnimation(); //state1
+		void circleAnimation(); //state2
 		
 };
