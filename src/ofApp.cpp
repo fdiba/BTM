@@ -9,7 +9,10 @@ void ofApp::setup(){
 	p_state = -1;
 
 	//-------- midi control
-	max_particles = 150;
+	max_particles = 150;//state1
+
+	max_radius = 150;//state2
+	radius = 0;//state2
 
 	std::stringstream strm;
 	strm << "fps: " << ofGetFrameRate();
@@ -137,8 +140,10 @@ void ofApp::circleAnimation() { //state2
 
 	ofVec2f center(ofGetWidth()/2, ofGetHeight()/2);
 
+	if (radius > 0)radius-=.2;
+
 	for (int i = 0; i < particles.size(); i++) {
-		particles[i].getAwayFrom(center);
+		particles[i].getAwayFrom(center, radius);
 	}
 
 }
@@ -228,8 +233,6 @@ void ofApp::keyPressed(int key){
 
 		cout << "p_state: " << p_state << endl;
 
-		
-
 
 	} else if (key == 's') {
 		img.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
@@ -271,6 +274,15 @@ void ofApp::mousePressed(int x, int y, int button){
 	//cout << "Time: " << ofGetElapsedTimef() << endl;
 	//cout << "Time: " << ofGetElapsedTimeMillis() << endl;
 	cout << "p size: " << particles.size() << "/" << max_particles << endl;
+
+	switch (p_state){
+	case 2:
+		radius = max_radius;
+		break;
+	default:
+		break;
+	}
+
 }
 
 //--------------------------------------------------------------

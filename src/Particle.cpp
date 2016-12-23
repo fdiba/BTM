@@ -15,7 +15,7 @@ void Particle::setup(float _x, float _y) {
 	alive = true;
 
 }
-void Particle::getAwayFrom(ofVec2f target) {
+void Particle::getAwayFrom(ofVec2f target, float radius) {
 
 	alpha = 255;
 	dim = dim_max;
@@ -24,7 +24,6 @@ void Particle::getAwayFrom(ofVec2f target) {
 	float dist = pos.distance(target);
 
 	float speed = .2;//TODO MAKE PARAM state2
-	float radius = 150; //TODO MAKE PARAM state2
 
 	if (dist < radius) {
 
