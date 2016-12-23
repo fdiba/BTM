@@ -12,7 +12,7 @@ void ofApp::setup(){
 	max_particles = 150;//state1
 
 	max_radius = 150;//state2
-	radius = 0;//state2
+	radius = max_radius;//state2
 
 	std::stringstream strm;
 	strm << "fps: " << ofGetFrameRate();
@@ -143,7 +143,7 @@ void ofApp::circleAnimation() { //state2
 	if (radius > 0)radius-=.2;
 
 	for (int i = 0; i < particles.size(); i++) {
-		particles[i].getAwayFrom(center, radius);
+		particles[i].getAwayFrom(center, radius, max_radius);
 	}
 
 }
@@ -233,13 +233,15 @@ void ofApp::keyPressed(int key){
 
 		cout << "p_state: " << p_state << endl;
 
+		if(key=='2')radius = max_radius;
+
 
 	} else if (key == 's') {
 		img.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
 
 		//
 		string str;
-		string name = "of_screenshot_" ;
+		string name = "of_oblivion_" ;
 		string date = ofToString(ofGetUnixTime());
 		string extension = ".png";
 		str.append(name);

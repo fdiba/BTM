@@ -57,7 +57,7 @@ class ofApp : public ofBaseApp, public ofxMidiListener {
 		int max_particles; //state1
 		
 		float max_radius; //state2
-		float radius;
+		float radius; //state2
 
 		void starDustAnimation(); //state1
 		void circleAnimation(); //state2

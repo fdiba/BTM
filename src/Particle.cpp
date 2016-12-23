@@ -15,7 +15,7 @@ void Particle::setup(float _x, float _y) {
 	alive = true;
 
 }
-void Particle::getAwayFrom(ofVec2f target, float radius) {
+void Particle::getAwayFrom(ofVec2f target, float radius, float max_radius) {
 
 	alpha = 255;
 	dim = dim_max;
@@ -46,6 +46,11 @@ void Particle::getAwayFrom(ofVec2f target, float radius) {
 		color.set(0, 0, 255);
 
 	}
+
+	//----
+
+	alpha = ofMap(dist, 0, max_radius, -100, 500);
+	alpha = ofClamp(alpha, 0, 255);
 
 
 	//----

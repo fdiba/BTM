@@ -9,7 +9,7 @@ class Particle {
 		void update();
 		void draw();
 
-		void getAwayFrom(ofVec2f target, float radius);
+		void getAwayFrom(ofVec2f target, float radius, float max_radius);
 
 		ofVec2f pos;
 		ofVec2f vel;
