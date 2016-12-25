@@ -15,7 +15,7 @@ void Particle::setup(float _x, float _y) {
 	alive = true;
 
 }
-void Particle::separateFromEachOthers(int index, vector <Particle> particles) {
+void Particle::separateFromEachOthers(int index, vector <Particle> &particles) {
 
 	for (int j = 0; j < particles.size(); j++){
 
@@ -23,6 +23,7 @@ void Particle::separateFromEachOthers(int index, vector <Particle> particles) {
 
 			//TODO use squareDistance !!
 			float dist = pos.distance(particles[j].pos);
+			//float dist = pos.squareDistance(particles[j].pos);
 
 			if (dist < radius + particles[j].radius) {
 				

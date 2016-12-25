@@ -10,7 +10,7 @@ class Particle {
 		void draw();
 
 		void getAwayFrom(ofVec2f target, float c_radius, float c_max_radius);
-		void separateFromEachOthers(int index, vector <Particle> particles);
+		void separateFromEachOthers(int index, vector <Particle> &particles);
 		void editPosWithVel();
 
 		ofVec2f pos;

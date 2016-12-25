@@ -57,6 +57,9 @@ void ofApp::setup(){
 	midiIn.setVerbose(true);
 
 	mrect.setup(60, 80, "kick 60");
+
+	//---------- state3
+	mpointer.setup(ofGetWidth() / 2, ofGetHeight() / 2, 150, 40);
 }
 //--------------------------------------------------------------
 void ofApp::exit() {
@@ -130,7 +133,9 @@ void ofApp::update(){
 		pulseAnimation();
 		break;
 	case 3:
+		mpointer.update();
 		circleAnimation();
+		mpointer.detectCollisionWith(particles);
 		break;
 	defaut:
 		break;
@@ -191,9 +196,15 @@ void ofApp::draw(){
 	//ofSetHexColor(0x000000);
 	//ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
 
+	if (p_state == 3) {
+		mpointer.draw();
+	}
+
 	for (int i = 0; i < particles.size(); i++) {
 		particles[i].draw();
 	}
+
+	
 	
 }
 void ofApp::displayMidiInfos() {

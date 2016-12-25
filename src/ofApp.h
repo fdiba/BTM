@@ -5,6 +5,7 @@
 
 #include "MRect.h"
 #include "Particle.h"
+#include "Mpointer.h"
 
 class ofApp : public ofBaseApp, public ofxMidiListener {
 
@@ -48,7 +49,7 @@ class ofApp : public ofBaseApp, public ofxMidiListener {
 		ofImage img;
 
 		MRect mrect;
-
+		MPointer mpointer;
 		
 
 	private:
