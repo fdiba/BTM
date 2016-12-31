@@ -8,7 +8,7 @@ void ofApp::setup(){
 	message = false;
 
 	midiOut.listPorts();
-	midiOut.openPort(4);
+	midiOut.openPort(3);
 
 	channel = 0;
 	number = 0;
@@ -60,7 +60,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
 
-	if (message) midiOut.sendControlChange(channel, number, 255);
+	if (message) midiOut.sendControlChange(channel, number, 127);
 	else midiOut.sendControlChange(channel, number, 0);
 
 	message = !message;
