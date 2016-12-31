@@ -10,7 +10,7 @@ void ofApp::setup(){
 	midiOut.listPorts();
 	midiOut.openPort(3);
 
-	channel = 0;
+	channel = 1;
 	number = 0;
 }
 
